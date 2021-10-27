@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_albums"
+        android:icon="@drawable/ic_albums_black_24dp"
+        android:title="@string/title_albums" />
+
+    <item
+        android:id="@+id/navigation_collectors"
+        android:icon="@drawable/ic_collectors_black_24dp"
+        android:title="@string/title_collectors" />
+
+    <item
+        android:id="@+id/navigation_adwards"
+        android:icon="@drawable/ic_trophy_black24dp"
+        android:title="@string/title_awards" />
+
+</menu>
