@@ -12,4 +12,9 @@ class Repository {
         val response:List<AlbumModel> = albumApi.getAlbums()
         return response
     }
+
+    suspend fun getAlbumById(id:Int):AlbumModel{
+        val response:AlbumModel = albumApi.getAlbumById(id)
+        return response
+    }
 }
