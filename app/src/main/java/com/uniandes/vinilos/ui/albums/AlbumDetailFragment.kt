@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.uniandes.vinilos.databinding.FragmentAlbumDetailBinding
 import com.uniandes.vinilos.databinding.FragmentAlbumsBinding
 import kotlinx.android.synthetic.main.fragment_albums.*
 
 class AlbumDetailFragment: Fragment() {
-    private lateinit var albumDetailViewModel: AlbumDetailViewModel : AlbumsDe
-    private var _binding: FragmentAlbumsBinding? = null
+    private lateinit var albumDetailViewModel: AlbumDetailViewModel
+    private var _binding: FragmentAlbumDetailBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,10 +24,10 @@ class AlbumDetailFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        albumsViewModel =
-            ViewModelProvider(this).get(AlbumsViewModel::class.java)
+        albumDetailViewModel =
+            ViewModelProvider(this).get(AlbumDetailViewModel::class.java)
 
-        _binding = FragmentAlbumsBinding.inflate(inflater, container, false)
+        _binding = FragmentAlbumDetailBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         /*val textView: TextView = binding.textAlbums*/
@@ -34,14 +35,10 @@ class AlbumDetailFragment: Fragment() {
             textView.text = it
         })*/
 
-        albumsViewModel.listModel.observe(viewLifecycleOwner, {
-            initRecycler(it)
+        albumDetailViewModel.album.observe(viewLifecycleOwner, {
+            init(it)
         })
-
-        albumsViewModel.isLoading.observe(viewLifecycleOwner,{
-            progress.isVisible = it
-        })
-        albumsViewModel.onCreate()
+        albumDetailViewModel.onCreate()
 
         return root
     }
