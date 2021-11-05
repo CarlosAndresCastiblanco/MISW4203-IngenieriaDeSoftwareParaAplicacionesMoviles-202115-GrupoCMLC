@@ -1,35 +1,61 @@
 package com.uniandes.vinilos
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.uniandes.vinilos.databinding.ActivityMainBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.uniandes.vinilos.theme.AlbumsAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+object Destinations {
+    const val LIST_SCREEN = "LIST_SCREEN"
+    const val DETAILS_SCREEN = "DETAILS_SCREEN"
+}
 
-    private lateinit var binding: ActivityMainBinding
-
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            AlbumsAppTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(color = MaterialTheme.colors.background) {
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Destinations.LIST_SCREEN,
+                    ) {
+                        composable(Destinations.LIST_SCREEN) {
+                            ListScreen(navController)
+                        }
+                        composable("${Destinations.DETAILS_SCREEN}/{id}") {
+                            it.arguments?.getString("id")?.let { title ->
+                                DetailsScreen(title, navController)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
+}
 
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_albums, R.id.navigation_collectors, R.id.navigation_adwards
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    AlbumsAppTheme {
+        Greeting("Android")
     }
 }
