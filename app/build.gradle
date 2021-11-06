@@ -9,13 +9,13 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.nopalsoft.newsapp"
+        applicationId "com.uniandes.vinilos"
         minSdk 26
         targetSdk 30
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.nopalsoft.newsapp.utils.CustomTestRunner"
+        testInstrumentationRunner "com.uniandes.vinilos.utils.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }

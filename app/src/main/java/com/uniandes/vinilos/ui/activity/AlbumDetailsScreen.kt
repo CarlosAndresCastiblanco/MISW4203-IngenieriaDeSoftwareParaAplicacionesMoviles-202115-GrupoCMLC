@@ -31,9 +31,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.uniandes.vinilos.R
 import com.uniandes.vinilos.model.Album
-import com.uniandes.vinilos.theme.AlbumsAppTheme
+import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
+import com.uniandes.vinilos.ui.viewmodel.AlbumDetailsScreenViewModel
 import java.text.SimpleDateFormat
 import java.time.Instant
 
@@ -41,7 +41,7 @@ import java.time.Instant
 fun DetailsScreen(
     id: String,
     navController: NavController,
-    viewModel: DetailsScreenViewModel = hiltViewModel()
+    viewModel: AlbumDetailsScreenViewModel = hiltViewModel()
 ) {
     val new by viewModel.getAlbumById(id).observeAsState(initial = null)
     DetailsScreen(id, navController, new)

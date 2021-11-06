@@ -1,4 +1,4 @@
-package com.uniandes.vinilos
+package com.uniandes.vinilos.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,17 +12,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class DetailsScreenViewModel @Inject constructor(
+class AlbumListScreenViewModel @Inject constructor(
     private val repository: AlbumsRepository
 ) : ViewModel() {
 
-    private val _albums = MutableLiveData<Album>()
+    private val _news = MutableLiveData<List<Album>>()
 
-    fun getAlbumById(id:String): LiveData<Album> {
+    fun getAlbums(): LiveData<List<Album>> {
         viewModelScope.launch(Dispatchers.IO) {
-            val news = repository.getAlbum(id)
-            _albums.postValue(news)
+            val news = repository.getAlbums()
+            _news.postValue(news)
         }
-        return _albums
+        return _news
     }
 }
