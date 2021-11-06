@@ -29,11 +29,12 @@ import coil.compose.rememberImagePainter
 import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
+import com.uniandes.vinilos.ui.viewmodel.AlbumListScreenViewModel
 
 @Composable
 fun ListScreen(
     navController: NavController,
-    viewModel: ListScreenViewModel = hiltViewModel()
+    viewModel: AlbumListScreenViewModel = hiltViewModel()
 ) {
     val albumsList by viewModel.getAlbums().observeAsState(initial = emptyList())
     ListScreen(navController, albumsList)
@@ -48,7 +49,7 @@ fun ListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Lista de Albumes") },
+                title = { Text("Lista de Álbumes") },
             )
         }
     )

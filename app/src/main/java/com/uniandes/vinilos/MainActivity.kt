@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
                         BottonNavigationBar(
                             items = listOf(
                                 BottomNavItem(
-                                   name = "Home",
+                                   name = "Álbumes",
                                    route = "home" ,
                                     icon = Icons.Default.Home
                                 ),
