@@ -1,4 +1,4 @@
-package com.uniandes.vinilos.theme
+package com.uniandes.vinilos.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

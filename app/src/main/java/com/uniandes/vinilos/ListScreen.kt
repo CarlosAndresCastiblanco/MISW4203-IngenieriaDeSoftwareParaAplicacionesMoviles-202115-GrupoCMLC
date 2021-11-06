@@ -26,10 +26,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.uniandes.vinilos.R
 import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.Performer
-import com.uniandes.vinilos.theme.AlbumsAppTheme
+import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 
 @Composable
 fun ListScreen(
