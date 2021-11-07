@@ -71,7 +71,6 @@ fun DetailsScreen(
         album?.let {
             Card(
                 shape = RoundedCornerShape(8.dp),
-                backgroundColor = Color(red= 250, green = 250, blue = 250),
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
