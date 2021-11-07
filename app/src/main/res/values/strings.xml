@@ -1,6 +1,3 @@
 <resources>
-    <string name="app_name">Vinilos</string>
-    <string name="title_albums">Álbumes</string>
-    <string name="title_collectors">Coleccionistas</string>
-    <string name="title_awards">Premios</string>
+    <string name="app_name">JetpackComposeNewsApp</string>
 </resources>

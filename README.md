@@ -1,5 +1,7 @@
-# MISW4203-IngenieriaDeSoftwareParaAplicacionesMoviles-202115-GrupoCMLC
-Ingeniería de software para aplicaciones móviles
+# Vinilos App
+
+- Requiere JDK +14
+- SDK Android 11 (R)
 
 
-### [Diagramas de arquitectura](https://github.com/CarlosAndresCastiblanco/MISW4203-IngenieriaDeSoftwareParaAplicacionesMoviles-202115-GrupoCMLC/wiki/Arquitectura)
+## [Información completa del proyecto en la Wiki](https://github.com/CarlosAndresCastiblanco/MISW4203-IngenieriaDeSoftwareParaAplicacionesMoviles-202115-GrupoCMLC/wiki#readme-proyecto)
