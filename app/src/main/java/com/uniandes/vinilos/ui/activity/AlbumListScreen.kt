@@ -54,7 +54,10 @@ fun ListScreen(
         }
     )
     {
-        LazyColumn {
+        LazyColumn (
+            modifier = Modifier
+                .padding(0.dp,0.dp, 0.dp, 60.dp)
+                ) {
             items(albums) { album ->
                 Card(
                     shape = RoundedCornerShape(8.dp),
