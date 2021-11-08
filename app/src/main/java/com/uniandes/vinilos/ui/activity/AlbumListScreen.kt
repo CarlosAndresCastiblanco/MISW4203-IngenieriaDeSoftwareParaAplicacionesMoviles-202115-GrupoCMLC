@@ -18,7 +18,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,7 +54,10 @@ fun ListScreen(
         }
     )
     {
-        LazyColumn(modifier = Modifier.testTag("albumItem")) {
+        LazyColumn (
+            modifier = Modifier
+                .padding(0.dp,0.dp, 0.dp, 60.dp)
+                ) {
             items(albums) { album ->
                 Card(
                     shape = RoundedCornerShape(8.dp),
