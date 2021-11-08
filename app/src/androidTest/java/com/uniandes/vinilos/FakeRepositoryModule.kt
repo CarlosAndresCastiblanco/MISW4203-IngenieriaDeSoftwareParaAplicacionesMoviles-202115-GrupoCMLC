@@ -24,13 +24,13 @@ class FakeRepositoryModule {
             val news = arrayListOf(
                 Album(
                     "1", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                    "2021", "rocl", "EMI", "Album description", arrayListOf(
-                        Performer("1", "Artista")
+                    "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
+                        Performer("1", "Artista 1")
                     )                 ),
                 Album(
-                    "2", "Album 2", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                    "2021", "rocl", "EMI", "Album description",  arrayListOf(
-                        Performer("1", "Artista")
+                    "2", "Album 2", "https://cdn.shopify.com/s/files/1/0275/3095/products/image_4931268b-7acf-4702-9c55-b2b3a03ed999_1024x1024.jpg",
+                    "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description",  arrayListOf(
+                        Performer("2", "Artista 2")
                     )               ),
             )
 
