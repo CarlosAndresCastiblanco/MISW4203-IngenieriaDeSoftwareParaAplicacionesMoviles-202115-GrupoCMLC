@@ -1,16 +1,19 @@
 package com.uniandes.vinilos.ui.activity
 
-import androidx.compose.ui.test.assertHasClickAction
+import android.media.JetPlayer
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.uniandes.vinilos.HomeScreen
 import com.uniandes.vinilos.ListScreen
 import com.uniandes.vinilos.MainActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Before
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,18 +23,26 @@ import org.junit.Rule
 @RunWith(AndroidJUnit4::class)
 class AlbumListTest {
     @get:Rule var activityScenarioRule = createAndroidComposeRule<MainActivity>()
+    private lateinit var navController : TestNavHostController
+    @get:Rule val composeTestRule = createComposeRule()
+
+    @Before
+    fun setUp() {
+        navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+    }
 
     @Test
     fun checkActivityVisibility(){
-        activityScenarioRule.onNodeWithText("Listado de Álbumes").assertExists()
-        activityScenarioRule.onNodeWithText("Álbumes").assertExists()
-        activityScenarioRule.onNodeWithTag("Card").assertHasClickAction()
+        activityScenarioRule.onNodeWithText("Lista de Álbumes").assertExists()
     }
 
     @Test
     fun selectAnyAlbumList(){
-        activityScenarioRule.onNodeWithText("Buscando").performClick()
-        activityScenarioRule.onNodeWithText("100 - Buscando").assertExists()
+        composeTestRule.setContent { HomeScreen() }
+        composeTestRule.onNodeWithText("Buscando América").assertExists()
+
+        activityScenarioRule.onNodeWithTag("albumItem").performClick()
+        activityScenarioRule.onNodeWithText("Artista").assertExists()
         activityScenarioRule.onNodeWithText("Bellido de Luna").assertExists()
     }
 }
