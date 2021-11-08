@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.uniandes.vinilos.model.Album
+import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import com.uniandes.vinilos.ui.viewmodel.AlbumDetailsScreenViewModel
 import java.text.SimpleDateFormat
@@ -102,7 +103,13 @@ fun DetailsScreen(
 
                             ) {
                                 Text(
-                                    album.recordLabel + " / ",
+                                    album.recordLabel,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                )
+
+                                Text(
+                                    " / ",
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.Bold,
                                 )
@@ -152,11 +159,13 @@ fun DetailsScreen(
 fun DetailsPreview() {
     AlbumsAppTheme {
         DetailsScreen(
-            id = "4",
+            id = "1",
             navController = rememberNavController(),
             album =  Album(
-                "4", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                "2021", "rocl", "EMI", "Album description",  emptyList()               ),
+                "1", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
+                "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description",  arrayListOf(
+                    Performer("1", "Artista 1")
+                )               ),
         )
     }
 }
