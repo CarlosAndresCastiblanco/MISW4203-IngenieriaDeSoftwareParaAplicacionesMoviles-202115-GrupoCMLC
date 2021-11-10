@@ -1,9 +1,9 @@
 package com.uniandes.vinilos
 
 import com.uniandes.vinilos.di.RepositoryModule
-import com.uniandes.vinilos.model.Album
-import com.uniandes.vinilos.model.Performer
+import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.repository.AlbumsRepository
+import com.uniandes.vinilos.repository.CollectorsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -37,5 +37,38 @@ class FakeRepositoryModule {
             override suspend fun getAlbums(): List<Album> = news
 
             override suspend fun getAlbum(id: String): Album = news[0]
+        }
+
+    @Provides
+    @Singleton
+    fun providerCollectorsRepository(): CollectorsRepository =
+        object : CollectorsRepository {
+            val collectors = arrayListOf(
+                Collector(
+                    "1", "Collecionista 1", "1234567", "coleccionista1@vinilos.com",
+                    arrayListOf(
+                        CollectorPerformers("1", "Artista 1", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg"),
+                        CollectorPerformers("2", "Artista 2", "https://pm1.narvii.com/6724/a8b29909071e9d08517b40c748b6689649372852v2_hq.jpg"),
+                    ),
+                    arrayListOf(
+                        CollectorAlbums("1", "123", "active"),
+                        CollectorAlbums("2", "456", "active"),
+                    )
+                ),
+                Collector(
+                    "2", "Collecionista 2", "7654321", "coleccionista2@vinilos.com",
+                    arrayListOf(
+                        CollectorPerformers("1", "Artista 1", "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg"),
+                        CollectorPerformers("2", "Artista 2", "https://pm1.narvii.com/6724/a8b29909071e9d08517b40c748b6689649372852v2_hq.jpg"),
+                    ),
+                    arrayListOf(
+                        CollectorAlbums("1", "123", "active"),
+                        CollectorAlbums("2", "456", "active"),
+                    )
+                )
+            )
+
+            override suspend fun getCollectors(): List<Collector> = collectors
+
         }
 }

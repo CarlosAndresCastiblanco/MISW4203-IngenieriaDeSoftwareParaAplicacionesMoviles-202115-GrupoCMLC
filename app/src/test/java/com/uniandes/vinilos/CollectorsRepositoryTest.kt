@@ -1,7 +1,8 @@
 package com.uniandes.vinilos
 
-import com.uniandes.vinilos.provider.AlbumsProvider
+import com.uniandes.vinilos.provider.CollectorsProvider
 import com.uniandes.vinilos.repository.AlbumsRepositoryImp
+import com.uniandes.vinilos.repository.CollectorsRepositoryImp
 import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
@@ -16,17 +17,17 @@ import org.junit.Assert.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AlbumsRepositoryTest {
+class CollectorsRepositoryTest {
     private val mockWebServer = MockWebServer()
 
-    private val albumsProvider = Retrofit.Builder()
+    private val collectorsProvider = Retrofit.Builder()
         .baseUrl(mockWebServer.url("/"))
         .client(OkHttpClient.Builder().build())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(AlbumsProvider::class.java)
+        .create(CollectorsProvider::class.java)
 
-    private val albumsRepository = AlbumsRepositoryImp(albumsProvider)
+    private val collectorsRepository = CollectorsRepositoryImp(collectorsProvider)
 
     @After
     fun tearDown() {
@@ -34,17 +35,14 @@ class AlbumsRepositoryTest {
     }
 
     @Test
-    fun `Top headlines response is correct`() {
-        mockWebServer.enqueueResponse("albums_response.json")
+    fun `Get collectors response is correct`() {
+        mockWebServer.enqueueResponse("collectors_response.json")
 
         runBlocking {
-            val albums = albumsRepository.getAlbums()
-            assertEquals(4, albums.size)
-            assertEquals("100", albums[0].id)
-            assertEquals("101", albums[1].id)
-            assertEquals("102", albums[2].id)
-            assertEquals("103", albums[3].id)
-
+            val collectors = collectorsRepository.getCollectors()
+            assertEquals(2, collectors.size)
+            assertEquals("100", collectors[0].id)
+            assertEquals("101", collectors[1].id)
         }
     }
 

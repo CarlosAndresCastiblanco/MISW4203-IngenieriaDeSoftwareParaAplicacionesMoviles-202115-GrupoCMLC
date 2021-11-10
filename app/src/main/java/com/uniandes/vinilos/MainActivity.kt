@@ -33,6 +33,8 @@ import dagger.hilt.android.AndroidEntryPoint
 object Destinations {
     const val LIST_SCREEN = "LIST_SCREEN"
     const val DETAILS_SCREEN = "DETAILS_SCREEN"
+
+    const val COLLECTOR_LIST_SCREEN = "COLLECTOR_LIST_SCREEN"
 }
 
 @AndroidEntryPoint
@@ -176,7 +178,21 @@ fun BottonNavigationBar(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Collectors Screen")
+        AlbumsAppTheme {
+            // A surface container using the 'background' color from the theme
+            Surface(color = MaterialTheme.colors.background) {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Destinations.COLLECTOR_LIST_SCREEN,
+                ) {
+                    composable(Destinations.COLLECTOR_LIST_SCREEN) {
+                        CollectorListScreen(navController)
+                    }
+
+                }
+            }
+        }
     }
 }
 

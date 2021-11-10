@@ -1,6 +1,7 @@
 package com.uniandes.vinilos.di
 
 import com.uniandes.vinilos.provider.AlbumsProvider
+import com.uniandes.vinilos.provider.CollectorsProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,8 +31,13 @@ class ProviderModule {
 
     @Provides
     @Singleton
-    fun providerNewsProvider(retrofit: Retrofit): AlbumsProvider =
+    fun providerAlbumsProvider(retrofit: Retrofit): AlbumsProvider =
         retrofit.create(AlbumsProvider::class.java)
+
+    @Provides
+    @Singleton
+    fun providerCollectorsProvider(retrofit: Retrofit): CollectorsProvider =
+        retrofit.create(CollectorsProvider::class.java)
 }
 
 
