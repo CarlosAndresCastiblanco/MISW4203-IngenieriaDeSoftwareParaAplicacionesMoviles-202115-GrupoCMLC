@@ -57,8 +57,32 @@ class CollectorListTest {
         Thread.sleep(500)
         composeRule.onNodeWithText("Collecionista 2").assertExists()
         composeRule.onNodeWithText("7654321").assertExists()
-        composeRule.onNodeWithText("coleccionista2@vinilos.com").assertExists()
+        composeRule.onNodeWithText("coleccionista2@vinilos.com").assertExists()    }
+
+    @Test
+    fun validateDetailAlbumActivity() {
+        Thread.sleep(500)
+        composeRule.onNodeWithText("Collecionista 1").assertExists()
+        //On click details
+        composeRule.onNodeWithText("Collecionista 1").performClick()
+        Thread.sleep(2000)
+        //Artistas Favoritos
+        composeRule.onNodeWithText("Artista 1").assertExists()
+        composeRule.onNodeWithText("Artista 2").assertExists()
+
+        //Albumes Coleccionista
+        composeRule.onNodeWithText("Album 1").assertExists()
+        composeRule.onNodeWithText("$123").assertExists()
+        composeRule.onNodeWithText("Album 2").assertExists()
+        composeRule.onNodeWithText("$456").assertExists()
+
+
+        //Validate return button OnClick
+        composeRule.onNodeWithContentDescription("Back").performClick()
+        // Validate Album List
+        Thread.sleep(2000)
+        composeRule.onNodeWithText("Collecionista 1").assertExists()
+        composeRule.onNodeWithText("Collecionista 2").assertExists()
+        Thread.sleep(1000)
     }
-
-
 }
