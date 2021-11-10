@@ -63,7 +63,10 @@ fun CollectorListScreen(
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier
                         .padding(8.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .clickable {
+                            navController.navigate("${Destinations.COLLECTOR_DETAILS_SCREEN}/${collector.id}")
+                        },
                 ) {
 
                     Row {
