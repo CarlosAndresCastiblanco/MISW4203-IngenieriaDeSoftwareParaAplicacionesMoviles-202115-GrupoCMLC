@@ -35,6 +35,7 @@ object Destinations {
     const val DETAILS_SCREEN = "DETAILS_SCREEN"
 
     const val COLLECTOR_LIST_SCREEN = "COLLECTOR_LIST_SCREEN"
+    const val COLLECTOR_DETAILS_SCREEN = "COLLECTOR_DETAILS_SCREEN"
 }
 
 @AndroidEntryPoint
@@ -189,7 +190,11 @@ fun BottonNavigationBar(
                     composable(Destinations.COLLECTOR_LIST_SCREEN) {
                         CollectorListScreen(navController)
                     }
-
+                    composable("${Destinations.COLLECTOR_DETAILS_SCREEN}/{id}") {
+                        it.arguments?.getString("id")?.let { title ->
+                            CollectorDetailsScreen(title, navController)
+                        }
+                    }
                 }
             }
         }

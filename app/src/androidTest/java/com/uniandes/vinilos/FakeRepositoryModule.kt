@@ -70,5 +70,6 @@ class FakeRepositoryModule {
 
             override suspend fun getCollectors(): List<Collector> = collectors
 
+            override suspend fun getCollector(id: String): Collector = collectors[0]
         }
 }

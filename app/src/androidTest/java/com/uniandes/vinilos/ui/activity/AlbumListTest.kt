@@ -9,7 +9,6 @@ import com.uniandes.vinilos.DetailsScreen
 
 import com.uniandes.vinilos.ListScreen
 import com.uniandes.vinilos.MainActivity
-import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
