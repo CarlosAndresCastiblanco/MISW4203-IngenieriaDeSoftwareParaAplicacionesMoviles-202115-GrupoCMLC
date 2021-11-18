@@ -12,6 +12,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -49,7 +51,7 @@ fun ListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Lista de Álbumes") },
+                title = { Text("Lista de Álbumes") }
             )
         }
     )

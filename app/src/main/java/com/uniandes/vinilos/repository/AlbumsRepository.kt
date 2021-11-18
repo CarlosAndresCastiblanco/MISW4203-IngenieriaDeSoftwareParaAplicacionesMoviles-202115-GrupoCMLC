@@ -1,5 +1,6 @@
 package com.uniandes.vinilos.repository
 
+import android.util.Log
 import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.provider.AlbumsProvider
@@ -8,6 +9,7 @@ import javax.inject.Inject
 interface AlbumsRepository {
     suspend fun getAlbums(): List<Album>
     suspend fun getAlbum(id: String): Album
+    suspend fun createAlbum(album:Album):Album
 }
 
 class AlbumsRepositoryImp @Inject constructor(
@@ -33,6 +35,17 @@ class AlbumsRepositoryImp @Inject constructor(
         album = apiResponse ?: Album("", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
         , "", "", "", "", perfomers);
         return album as Album
+    }
+
+     override  suspend fun  createAlbum(album:Album):Album{
+        val apiResponse = albumsProvider.createAlbum(album).body()
+         Log.d("RESPONSE", album.toString())
+        var perfomers = arrayListOf(
+            Performer("1", "Artista")
+        )
+        var newAlbum = apiResponse ?: Album("", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
+            , "", "", "", "", perfomers);
+        return newAlbum as Album
     }
 
 }
