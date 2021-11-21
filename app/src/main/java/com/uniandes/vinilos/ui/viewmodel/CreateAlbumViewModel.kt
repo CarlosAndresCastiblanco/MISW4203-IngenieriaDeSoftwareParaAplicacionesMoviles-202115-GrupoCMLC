@@ -10,7 +10,8 @@ import com.uniandes.vinilos.repository.AlbumsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +25,9 @@ class CreateAlbumViewModel @Inject constructor(
     val recorder = MutableLiveData<String>()
     val description = MutableLiveData<String>()
     val releaseDate = MutableLiveData<String>()
+    val navegar = MutableLiveData<Boolean>()
+
+
 
     val valid = MediatorLiveData<Boolean>().apply{
         addSource(name){
@@ -75,7 +79,10 @@ class CreateAlbumViewModel @Inject constructor(
         return true
     }
 
+
     fun enviar():String{
+        //val apiFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        //val date =  LocalDate.parse(releaseDate.value, apiFormat)
         val newAlbum = Album(
             "0",
             name.value?:"",
@@ -86,9 +93,13 @@ class CreateAlbumViewModel @Inject constructor(
             description.value?:"",
             emptyList()
             )
+        Log.d("DATE",releaseDate.value.toString())
         viewModelScope.launch(Dispatchers.IO) {
             val newalbum = repository.createAlbum(newAlbum)
-
+            Log.d("RESPONSE",newalbum.toString())
+            if(newalbum.id != "error"){
+                navegar.postValue(true)
+            }
         }
         return ""
     }

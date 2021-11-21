@@ -160,8 +160,7 @@ fun BottonNavigationBar(
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    //startDestination = Destinations.LIST_SCREEN,
-                    startDestination = Destinations.CREATE_ALBUM_SCREEN,
+                    startDestination = Destinations.LIST_SCREEN,
                 ) {
                     composable(Destinations.LIST_SCREEN) {
                         ListScreen(navController)

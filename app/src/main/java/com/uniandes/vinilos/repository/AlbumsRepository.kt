@@ -2,6 +2,7 @@ package com.uniandes.vinilos.repository
 
 import android.util.Log
 import com.uniandes.vinilos.model.Album
+import com.uniandes.vinilos.model.AlbumCreate
 import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.provider.AlbumsProvider
 import javax.inject.Inject
@@ -38,12 +39,15 @@ class AlbumsRepositoryImp @Inject constructor(
     }
 
      override  suspend fun  createAlbum(album:Album):Album{
-        val apiResponse = albumsProvider.createAlbum(album).body()
-         Log.d("RESPONSE", album.toString())
+
+        val creatingAlbum = AlbumCreate(name=album.name,cover=album.cover,releaseDate =album.releaseDate,genre = album.genre,recordLabel = album.recordLabel,description = album.description)
+        val apiResponse = albumsProvider.createAlbum(creatingAlbum)
         var perfomers = arrayListOf(
             Performer("1", "Artista")
         )
-        var newAlbum = apiResponse ?: Album("", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
+         Log.d("RESPONSE", apiResponse.body().toString())
+         Log.d("RESPONSE",apiResponse.code().toString())
+        var newAlbum = apiResponse.body() ?: Album("error", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
             , "", "", "", "", perfomers);
         return newAlbum as Album
     }

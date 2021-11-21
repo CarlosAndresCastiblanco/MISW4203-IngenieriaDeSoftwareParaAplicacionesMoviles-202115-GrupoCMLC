@@ -3,21 +3,31 @@ package com.uniandes.vinilos.ui.activity
 import android.app.DatePickerDialog
 import android.util.Log
 import android.widget.DatePicker
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.uniandes.vinilos.Destinations
 import com.uniandes.vinilos.ui.viewmodel.CreateAlbumViewModel
 import java.util.*
 
@@ -35,6 +45,32 @@ fun CreateAlbumScreen(
     val releaseDate by viewModel.releaseDate.observeAsState()
 
     val valid by viewModel.valid.observeAsState()
+    val navegar by viewModel.navegar.observeAsState(false)
+
+    //Dropdown Disqueras
+    var expanded by remember { mutableStateOf(false)}
+    val recordLabels = listOf("Sony Music","EMI", "Discos Fuentes", "Elektra", "Fania Records")
+    var selectedRecordItem by remember { mutableStateOf("")}
+    var textFiledSize by remember {mutableStateOf(Size.Zero)}
+
+    val icon = if(expanded){
+        Icons.Filled.KeyboardArrowUp
+    }else{
+        Icons.Filled.KeyboardArrowDown
+    }
+
+
+    //Dropdown géneros
+    var expanded1 by remember { mutableStateOf(false)}
+    val  genres = listOf("Classical","Salsa","Rock","Folk")
+    var selectGenreItem by remember { mutableStateOf("")}
+    var textFiledSize1 by remember {mutableStateOf(Size.Zero) }
+    val icon1 = if(expanded1){
+        Icons.Filled.KeyboardArrowUp
+    }else{
+        Icons.Filled.KeyboardArrowDown
+    }
+
 
     val context = LocalContext.current
     val year: Int
@@ -46,12 +82,14 @@ fun CreateAlbumScreen(
     month = calendar.get(Calendar.MONTH)
     day = calendar.get(Calendar.DAY_OF_MONTH)
     calendar.time = Date()
+    //calendar.set(year,month, day)
 
     val datePickerDialog = DatePickerDialog(
         context,0,
         { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
-            Log.d("TAG", "$dayOfMonth/$month/$year")
-            viewModel.releaseDate.postValue("$dayOfMonth/$month/$year")
+            calendar.set(year,month, dayOfMonth)
+            //viewModel.releaseDate.postValue("$dayOfMonth/$month/$year")
+            viewModel.releaseDate.postValue(calendar.getTime().toString())
         }, year, month, day
     )
     Column(
@@ -60,6 +98,15 @@ fun CreateAlbumScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        Text("Crear Álbum", fontSize = 30.sp,fontWeight = FontWeight.Bold)
+        IconButton(
+            onClick = { navController.navigate(Destinations.LIST_SCREEN) },
+            modifier = Modifier.align(Alignment.Start)
+            ) {
+            Icon(
+                Icons.Filled.KeyboardArrowLeft,"",
+                )
+        }
         OutlinedTextField(
             value = name ?: "",
             onValueChange = {viewModel.name.postValue(it)},
@@ -75,18 +122,84 @@ fun CreateAlbumScreen(
         )
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(
+            value=selectGenreItem,
+            onValueChange = {selectGenreItem=it},
+            modifier = Modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates1 ->
+                    textFiledSize1 = coordinates1.size.toSize()
+                },
+            enabled = false,
+            label = {Text(text="Seleccione género")},
+            trailingIcon =  {
+                Icon(
+                    icon1,
+                    "" ,
+                    Modifier.clickable { expanded1= !expanded1 }
+                )
+            }
+        )
+        DropdownMenu(
+            expanded = expanded1,
+            onDismissRequest = { expanded1 = false },
+            modifier = Modifier.width(with(LocalDensity.current){textFiledSize1.width.toDp()})
+        ) {
+            genres.forEach{
+                    label -> DropdownMenuItem(onClick = {
+                viewModel.genre.postValue(label)
+                selectGenreItem=label
+                expanded1=false
+            }) {
+                Text(text=label)
+            }
+            }
+        }
+        /*OutlinedTextField(
             value = genre ?: "",
             onValueChange = {viewModel.genre.postValue(it)},
             label = { Text("Género") },
             modifier = Modifier.fillMaxWidth()
-        )
+        )*/
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(
+            value = selectedRecordItem,
+            onValueChange = {selectedRecordItem= it},
+            enabled = false,
+            modifier = Modifier
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    textFiledSize = coordinates.size.toSize()
+                },
+            label = {Text(text= "Seleccione Disquera")},
+            trailingIcon =  {
+                Icon(
+                    icon,
+                    "" ,
+                    Modifier.clickable { expanded= !expanded }
+                )
+            }
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.width(with(LocalDensity.current){textFiledSize.width.toDp()})
+        ) {
+            recordLabels.forEach{
+                label -> DropdownMenuItem(onClick = {
+                viewModel.recorder.postValue(label)
+                selectedRecordItem=label
+                expanded=false
+                }) {
+                Text(text=label)
+            }
+            }
+        }
+        /*OutlinedTextField(
             value = recorder?:"",
             onValueChange = {viewModel.recorder.postValue(it)},
             label = { Text("Disquera") },
             modifier = Modifier.fillMaxWidth()
-        )
+        )*/
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(
             value = description ?:"",
@@ -101,9 +214,22 @@ fun CreateAlbumScreen(
         }
 
         Spacer(modifier = Modifier.size(8.dp))
-        Button(modifier= Modifier.fillMaxWidth() ,enabled= valid?:false, onClick = {viewModel.enviar()}) {
+        Button(modifier= Modifier.fillMaxWidth() ,enabled= valid?:false,
+            onClick = {
+                var res = viewModel.enviar()
+                Log.d("UI",res)
+                if(res == "OK"){
+                    navController.navigate(Destinations.LIST_SCREEN)
+                }
+            }) {
             Text(text = "Guardar")
         }
+
+        Spacer(modifier = Modifier.size(8.dp))
+        if(valid == false){
+            Text("Complete los campos, No olvide seleccionar fecha", color = Color.Red)
+        }
+
 
 
     }
