@@ -9,6 +9,8 @@ import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.repository.AlbumsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -25,8 +27,10 @@ class CreateAlbumViewModel @Inject constructor(
     val recorder = MutableLiveData<String>()
     val description = MutableLiveData<String>()
     val releaseDate = MutableLiveData<String>()
-    val navegar = MutableLiveData<Boolean>()
 
+    //    val goHome = MutableSharedFlow<Boolean>().asSharedFlow()
+    private val _eventFlow = MutableSharedFlow<Boolean>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
 
     val valid = MediatorLiveData<Boolean>().apply{
@@ -93,12 +97,12 @@ class CreateAlbumViewModel @Inject constructor(
             description.value?:"",
             emptyList()
             )
-        Log.d("DATE",releaseDate.value.toString())
         viewModelScope.launch(Dispatchers.IO) {
             val newalbum = repository.createAlbum(newAlbum)
-            Log.d("RESPONSE",newalbum.toString())
             if(newalbum.id != "error"){
-                navegar.postValue(true)
+                _eventFlow.emit(true)
+            }else{
+                _eventFlow.emit(false)
             }
         }
         return ""
