@@ -4,6 +4,7 @@ import android.util.Log
 import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.AlbumCreate
 import com.uniandes.vinilos.model.Performer
+import com.uniandes.vinilos.provider.AlbumCache
 import com.uniandes.vinilos.provider.AlbumsProvider
 import javax.inject.Inject
 
@@ -21,10 +22,15 @@ class AlbumsRepositoryImp @Inject constructor(
     private var album: Album? = null
 
     override suspend fun getAlbums(): List<Album> {
-        val apiResponse = albumsProvider.getAlbums().body()
+        if(AlbumCache.getAlbum().isEmpty()){
+            val apiResponse = albumsProvider.getAlbums().body()
+            albums = apiResponse ?: emptyList()
+            AlbumCache.setAlbum(albums)
+            return albums
+        }else{
+            return AlbumCache.getAlbum()
+        }
 
-        albums = apiResponse ?: emptyList()
-        return albums
     }
 
     override suspend fun getAlbum(id: String): Album {
@@ -45,10 +51,9 @@ class AlbumsRepositoryImp @Inject constructor(
         var perfomers = arrayListOf(
             Performer("1", "Artista")
         )
-         Log.d("RESPONSE", apiResponse.body().toString())
-         Log.d("RESPONSE",apiResponse.code().toString())
         var newAlbum = apiResponse.body() ?: Album("error", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
             , "", "", "", "", perfomers);
+         AlbumCache.addAlbum(newAlbum)
         return newAlbum as Album
     }
 

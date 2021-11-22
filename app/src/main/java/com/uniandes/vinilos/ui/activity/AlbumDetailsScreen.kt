@@ -133,7 +133,12 @@ fun DetailsScreen(
                             Text("Titulo", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                             Text(album.name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
                             Text("Artista", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(album.performers[0].name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            if(album.performers.size > 0){
+                                Text(album.performers[0].name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            }else{
+                                Text("No disponible", fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            }
+
                             Text("Genero", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                             Text(album.genre, fontSize = 18.sp, fontWeight = FontWeight.Normal)
 

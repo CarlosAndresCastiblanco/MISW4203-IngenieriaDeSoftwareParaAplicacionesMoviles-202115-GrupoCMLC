@@ -37,6 +37,10 @@ class FakeRepositoryModule {
             override suspend fun getAlbums(): List<Album> = news
 
             override suspend fun getAlbum(id: String): Album = news[0]
+
+            override suspend fun createAlbum(album: Album): Album {
+                TODO("Not yet implemented")
+            }
         }
 
     @Provides

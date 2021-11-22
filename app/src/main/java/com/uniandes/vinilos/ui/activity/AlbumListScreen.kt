@@ -56,7 +56,7 @@ fun ListScreen(
                     IconButton(
                         onClick = { navController.navigate(Destinations.CREATE_ALBUM_SCREEN)}) {
                         Icon(
-                            Icons.Filled.AddCircle,"",
+                            Icons.Filled.AddCircle,"add_button",
                             tint = Color.White,
                         )
                     }
@@ -109,7 +109,9 @@ fun ListScreen(
                                 .padding(8.dp)
                                 .align(Alignment.CenterVertically)) {
                             Text(album.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            //Text(album.performers[0]?.name, maxLines = 3)
+                            if(album.performers.size > 0){
+                                Text(album.performers[0]?.name, maxLines = 3)
+                            }
 
 
                         }

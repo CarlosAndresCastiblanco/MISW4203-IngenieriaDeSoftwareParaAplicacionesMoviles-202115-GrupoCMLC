@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -127,14 +128,15 @@ fun CreateAlbumScreen(
                 value = name ?: "",
                 onValueChange = {viewModel.name.postValue(it)},
                 label = { Text("Nombre") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().testTag("NAME"),
+
             )
             Spacer(modifier = Modifier.size(4.dp))
             OutlinedTextField(
                 value = cover ?: "",
                 onValueChange = {viewModel.cover.postValue(it)},
                 label = { Text("Cover") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth().testTag("COVER")
             )
             Spacer(modifier = Modifier.size(4.dp))
             OutlinedTextField(
@@ -142,6 +144,7 @@ fun CreateAlbumScreen(
                 onValueChange = {selectGenreItem=it},
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag("GENRE")
                     .onGloballyPositioned { coordinates1 ->
                         textFiledSize1 = coordinates1.size.toSize()
                     },
@@ -183,6 +186,7 @@ fun CreateAlbumScreen(
                 enabled = false,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag("RECORD")
                     .onGloballyPositioned { coordinates ->
                         textFiledSize = coordinates.size.toSize()
                     },
@@ -223,9 +227,10 @@ fun CreateAlbumScreen(
                 onValueChange = {viewModel.description.postValue(it)},
                 label = { Text("Descripción") },
                 modifier = Modifier.fillMaxWidth()
+                    .testTag("DESCRIPTION")
             )
             Spacer(modifier = Modifier.size(4.dp))
-            Button(onClick = { datePickerDialog.show() }) {
+            Button(modifier = Modifier.testTag("DATE"),onClick = { datePickerDialog.show() }) {
                 Text(text = "Seleccionar Fecha de Lanzamiento")
             }
 
