@@ -1,7 +1,5 @@
 package com.uniandes.vinilos.provider
 
-import android.util.Log
-import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.Collector
 
 object CollectorCache {

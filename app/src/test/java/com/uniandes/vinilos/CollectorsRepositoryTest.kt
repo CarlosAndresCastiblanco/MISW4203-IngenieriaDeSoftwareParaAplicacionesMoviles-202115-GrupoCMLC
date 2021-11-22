@@ -1,9 +1,7 @@
 package com.uniandes.vinilos
 
 import com.uniandes.vinilos.provider.CollectorsProvider
-import com.uniandes.vinilos.repository.AlbumsRepositoryImp
 import com.uniandes.vinilos.repository.CollectorsRepositoryImp
-import java.nio.charset.StandardCharsets
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
@@ -11,11 +9,11 @@ import okhttp3.mockwebserver.MockWebServer
 import okio.buffer
 import okio.source
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.nio.charset.StandardCharsets
 
 class CollectorsRepositoryTest {
     private val mockWebServer = MockWebServer()

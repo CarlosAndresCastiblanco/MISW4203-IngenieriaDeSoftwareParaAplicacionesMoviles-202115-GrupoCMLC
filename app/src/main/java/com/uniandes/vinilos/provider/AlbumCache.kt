@@ -1,6 +1,5 @@
 package com.uniandes.vinilos.provider
 
-import android.util.Log
 import com.uniandes.vinilos.model.Album
 
 object AlbumCache {

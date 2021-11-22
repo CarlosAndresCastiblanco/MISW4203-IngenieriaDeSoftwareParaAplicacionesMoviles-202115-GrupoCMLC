@@ -1,19 +1,17 @@
 package com.uniandes.vinilos.ui.activity
+
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.uniandes.vinilos.Destinations
 import com.uniandes.vinilos.DetailsScreen
-
 import com.uniandes.vinilos.ListScreen
 import com.uniandes.vinilos.MainActivity
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -33,7 +31,7 @@ class AlbumListTest {
         hiltRule.inject()
         composeRule.setContent {
             val navController = rememberNavController()
-            AlbumsAppTheme() {
+            AlbumsAppTheme {
                 NavHost(
                     navController = navController,
                     startDestination = "home"

@@ -1,8 +1,8 @@
 package com.uniandes.vinilos.repository
 
-import com.uniandes.vinilos.model.*
-import com.uniandes.vinilos.provider.AlbumCache
-import com.uniandes.vinilos.provider.AlbumsProvider
+import com.uniandes.vinilos.model.Collector
+import com.uniandes.vinilos.model.CollectorAlbums
+import com.uniandes.vinilos.model.CollectorPerformers
 import com.uniandes.vinilos.provider.CollectorCache
 import com.uniandes.vinilos.provider.CollectorsProvider
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class CollectorsRepositoryImp @Inject constructor(
             CollectorAlbums("1", "590", "Active")
         )
         collector = apiResponse ?: Collector("1", "Performer", "1234567", "performer@music.com",
-            collectorPerfomers, collectorAlbums);
+            collectorPerfomers, collectorAlbums)
         return collector as Collector
     }
 
