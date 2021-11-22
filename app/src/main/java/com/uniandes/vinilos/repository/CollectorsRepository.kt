@@ -1,7 +1,9 @@
 package com.uniandes.vinilos.repository
 
 import com.uniandes.vinilos.model.*
+import com.uniandes.vinilos.provider.AlbumCache
 import com.uniandes.vinilos.provider.AlbumsProvider
+import com.uniandes.vinilos.provider.CollectorCache
 import com.uniandes.vinilos.provider.CollectorsProvider
 import javax.inject.Inject
 
@@ -18,10 +20,14 @@ class CollectorsRepositoryImp @Inject constructor(
     private var collector: Collector? = null
 
     override suspend fun getCollectors(): List<Collector> {
-        val apiResponse = collectorsProvider.getCollectors().body()
-
-        collectors = apiResponse ?: emptyList()
-        return collectors
+        if(CollectorCache.getCollector().isEmpty()){
+            val apiResponse = collectorsProvider.getCollectors().body()
+            collectors = apiResponse ?: emptyList()
+            CollectorCache.setCollectors(collectors)
+            return collectors
+        }else{
+            return CollectorCache.getCollector()
+        }
     }
 
     override suspend fun getCollector(id: String): Collector {

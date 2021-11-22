@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.uniandes.vinilos.ui.activity.CreateAlbumScreen
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import com.uniandes.vinilos.ui.theme.BottomNavWithBadgesTheme
 import com.uniandes.vinilos.ui.theme.navigation.BottomNavItem
@@ -33,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 object Destinations {
     const val LIST_SCREEN = "LIST_SCREEN"
     const val DETAILS_SCREEN = "DETAILS_SCREEN"
+    const val CREATE_ALBUM_SCREEN = "CREATE_ALBUM_SCREEN"
 
     const val COLLECTOR_LIST_SCREEN = "COLLECTOR_LIST_SCREEN"
     const val COLLECTOR_DETAILS_SCREEN = "COLLECTOR_DETAILS_SCREEN"
@@ -167,6 +169,9 @@ fun BottonNavigationBar(
                         it.arguments?.getString("id")?.let { title ->
                             DetailsScreen(title, navController)
                         }
+                    }
+                    composable(Destinations.CREATE_ALBUM_SCREEN){
+                        CreateAlbumScreen(navController)
                     }
                 }
             }
