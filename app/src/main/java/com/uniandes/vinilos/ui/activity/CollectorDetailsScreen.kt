@@ -2,16 +2,9 @@ package com.uniandes.vinilos
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -29,10 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
-import com.google.android.material.tabs.TabItem
 import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
-import com.uniandes.vinilos.ui.viewmodel.AlbumDetailsScreenViewModel
 import com.uniandes.vinilos.ui.viewmodel.AlbumListScreenViewModel
 import com.uniandes.vinilos.ui.viewmodel.CollectorDetailsScreenViewModel
 
@@ -71,7 +62,7 @@ fun CollectorDetailsScreen(
             )
         }
     ) {
-        Column() {
+        Column {
             Row(
                 modifier = Modifier
                     .padding(10.dp)

@@ -30,7 +30,7 @@ class CollectorListTest {
         hiltRule.inject()
         composeRule.setContent {
             val navController = rememberNavController()
-            AlbumsAppTheme() {
+            AlbumsAppTheme {
                 NavHost(
                     navController = navController,
                     startDestination = "collectors"

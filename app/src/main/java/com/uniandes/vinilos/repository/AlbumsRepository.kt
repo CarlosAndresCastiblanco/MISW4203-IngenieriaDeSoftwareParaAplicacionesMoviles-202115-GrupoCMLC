@@ -1,6 +1,5 @@
 package com.uniandes.vinilos.repository
 
-import android.util.Log
 import com.uniandes.vinilos.model.Album
 import com.uniandes.vinilos.model.AlbumCreate
 import com.uniandes.vinilos.model.Performer
@@ -40,7 +39,7 @@ class AlbumsRepositoryImp @Inject constructor(
             Performer("1", "Artista")
         )
         album = apiResponse ?: Album("", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
-        , "", "", "", "", perfomers);
+        , "", "", "", "", perfomers)
         return album as Album
     }
 
@@ -52,12 +51,10 @@ class AlbumsRepositoryImp @Inject constructor(
             Performer("1", "Artista")
         )
         var newAlbum = apiResponse.body() ?: Album("error", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
-            , "", "", "", "", perfomers);
+            , "", "", "", "", perfomers)
          AlbumCache.addAlbum(newAlbum)
         return newAlbum as Album
     }
 
 }
 
-class MissingApiKeyException : java.lang.Exception()
-class ApiKeyInvalidException : java.lang.Exception()
