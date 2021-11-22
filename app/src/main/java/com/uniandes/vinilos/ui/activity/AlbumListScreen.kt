@@ -3,20 +3,18 @@ package com.uniandes.vinilos
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +48,20 @@ fun ListScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Lista de Álbumes") },
+                actions = {
+                    IconButton(
+                        onClick = { navController.navigate(Destinations.CREATE_ALBUM_SCREEN)}) {
+                        Icon(
+                            Icons.Filled.AddCircle,"add_button",
+                            tint = Color.White,
+                        )
+                    }
+                }
             )
         }
+
+
+
     )
     {
         LazyColumn (
@@ -70,7 +80,10 @@ fun ListScreen(
                 ) {
 
                     Row {
-                        Column(Modifier.width(250.dp).padding(8.dp)) {
+                        Column(
+                            Modifier
+                                .width(250.dp)
+                                .padding(8.dp)) {
                             Image(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -87,9 +100,16 @@ fun ListScreen(
                             )
                         }
 
-                        Column(Modifier.padding(8.dp).align(Alignment.CenterVertically)) {
+                        Column(
+                            Modifier
+                                .padding(8.dp)
+                                .align(Alignment.CenterVertically)) {
                             Text(album.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(album.performers[0].name, maxLines = 3)
+                            if(album.performers.size > 0){
+                                Text(album.performers[0]?.name, maxLines = 3)
+                            }
+
+
                         }
                     }
 

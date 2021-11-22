@@ -5,13 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -19,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -133,7 +126,12 @@ fun DetailsScreen(
                             Text("Titulo", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                             Text(album.name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
                             Text("Artista", fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            Text(album.performers[0].name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            if(album.performers.size > 0){
+                                Text(album.performers[0].name, fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            }else{
+                                Text("No disponible", fontSize = 18.sp, fontWeight = FontWeight.Normal)
+                            }
+
                             Text("Genero", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                             Text(album.genre, fontSize = 18.sp, fontWeight = FontWeight.Normal)
 

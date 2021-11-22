@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.uniandes.vinilos.ui.activity.CreateAlbumScreen
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import com.uniandes.vinilos.ui.theme.BottomNavWithBadgesTheme
 import com.uniandes.vinilos.ui.theme.navigation.BottomNavItem
@@ -33,6 +34,10 @@ import dagger.hilt.android.AndroidEntryPoint
 object Destinations {
     const val LIST_SCREEN = "LIST_SCREEN"
     const val DETAILS_SCREEN = "DETAILS_SCREEN"
+    const val CREATE_ALBUM_SCREEN = "CREATE_ALBUM_SCREEN"
+
+    const val COLLECTOR_LIST_SCREEN = "COLLECTOR_LIST_SCREEN"
+    const val COLLECTOR_DETAILS_SCREEN = "COLLECTOR_DETAILS_SCREEN"
 }
 
 @AndroidEntryPoint
@@ -165,6 +170,9 @@ fun BottonNavigationBar(
                             DetailsScreen(title, navController)
                         }
                     }
+                    composable(Destinations.CREATE_ALBUM_SCREEN){
+                        CreateAlbumScreen(navController)
+                    }
                 }
             }
         }
@@ -176,7 +184,25 @@ fun BottonNavigationBar(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Collectors Screen")
+        AlbumsAppTheme {
+            // A surface container using the 'background' color from the theme
+            Surface(color = MaterialTheme.colors.background) {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Destinations.COLLECTOR_LIST_SCREEN,
+                ) {
+                    composable(Destinations.COLLECTOR_LIST_SCREEN) {
+                        CollectorListScreen(navController)
+                    }
+                    composable("${Destinations.COLLECTOR_DETAILS_SCREEN}/{id}") {
+                        it.arguments?.getString("id")?.let { title ->
+                            CollectorDetailsScreen(title, navController)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -51,7 +51,7 @@ class AlbumsRepositoryTest {
 
 }
 
-fun MockWebServer.enqueueResponse(filePath: String) {
+private fun MockWebServer.enqueueResponse(filePath: String) {
     val inputStream = javaClass.classLoader?.getResourceAsStream(filePath)
     val source = inputStream?.source()?.buffer()
     source?.let {
