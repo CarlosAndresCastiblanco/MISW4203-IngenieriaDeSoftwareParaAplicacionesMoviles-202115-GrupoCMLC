@@ -131,18 +131,18 @@ fun ListPreview() {
                     "1", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("1", "Artista 1")
-                    )                ),
+                    ), emptyList()                ),
                 Album(
                     "2", "Album 2", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("2", "Artista 2")
-                    )
+                    ),emptyList()
                 ),
                 Album(
                     "3", "Album 3", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("3", "Artista 3")
-                    )
+                    ),emptyList()
                 )
             )
         )
