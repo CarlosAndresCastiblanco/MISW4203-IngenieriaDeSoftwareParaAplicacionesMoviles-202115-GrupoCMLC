@@ -38,6 +38,8 @@ object Destinations {
 
     const val COLLECTOR_LIST_SCREEN = "COLLECTOR_LIST_SCREEN"
     const val COLLECTOR_DETAILS_SCREEN = "COLLECTOR_DETAILS_SCREEN"
+
+    const val ARTIST_LIST_SCREEN = "ARTIST_LIST_SCREEN"
 }
 
 @AndroidEntryPoint
@@ -62,8 +64,8 @@ class MainActivity : ComponentActivity() {
                                     icon = Icons.Default.Person
                                 ),
                                  BottomNavItem(
-                                        name = "Premios",
-                                        route = "awards" ,
+                                        name = "Artistas",
+                                        route = "artists" ,
                                         icon = Icons.Default.Star
                                  )
                             ) ,
@@ -102,8 +104,8 @@ fun Navigation(navController: NavHostController) {
         composable("collectors") {
             CollectorsScreen()
         }
-        composable("awards") {
-            AwardsScreen()
+        composable("artists") {
+            ArtistsScreen()
         }
     }
 }
@@ -206,11 +208,24 @@ fun BottonNavigationBar(
     }
 }
 
-@Composable fun AwardsScreen() {
+@Composable fun ArtistsScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = "Awards Screen")
+        AlbumsAppTheme {
+            // A surface container using the 'background' color from the theme
+            Surface(color = MaterialTheme.colors.background) {
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Destinations.ARTIST_LIST_SCREEN,
+                ) {
+                    composable(Destinations.ARTIST_LIST_SCREEN) {
+                        ArtistsListScreen(navController)
+                    }
+                }
+            }
+        }
     }
 }

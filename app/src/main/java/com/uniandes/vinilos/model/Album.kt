@@ -8,5 +8,6 @@ data class Album(
     var genre: String,
     var recordLabel: String,
     var description: String,
-    var performers: List<Performer>
+    var performers: List<Performer>,
+    var comments: List<Comment>
 )

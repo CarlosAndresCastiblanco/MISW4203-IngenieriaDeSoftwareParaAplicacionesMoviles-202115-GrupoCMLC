@@ -25,58 +25,48 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.uniandes.vinilos.model.Album
+import com.uniandes.vinilos.model.Artist
 import com.uniandes.vinilos.model.Performer
 import com.uniandes.vinilos.ui.theme.AlbumsAppTheme
 import com.uniandes.vinilos.ui.viewmodel.AlbumListScreenViewModel
+import com.uniandes.vinilos.ui.viewmodel.ArtistsListScreenViewModel
 
 @Composable
-fun ListScreen(
+fun ArtistsListScreen(
     navController: NavController,
-    viewModel: AlbumListScreenViewModel = hiltViewModel()
+    viewModel: ArtistsListScreenViewModel = hiltViewModel()
 ) {
-    val albumsList by viewModel.getAlbums().observeAsState(initial = emptyList())
-    ListScreen(navController, albumsList)
+    val artistsList by viewModel.getArtists().observeAsState(initial = emptyList())
+    ArtistsListScreen(navController, artistsList)
 
 }
 
 @Composable
-fun ListScreen(
+fun ArtistsListScreen(
     navController: NavController,
-    albums: List<Album>
+    artists: List<Artist>
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Lista de Álbumes") },
-                actions = {
-                    IconButton(
-                        onClick = { navController.navigate(Destinations.CREATE_ALBUM_SCREEN)}) {
-                        Icon(
-                            Icons.Filled.AddCircle,"add_button",
-                            tint = Color.White,
-                        )
-                    }
-                }
+                title = { Text("Lista de Artistas") },
             )
         }
-
-
-
     )
     {
         LazyColumn (
             modifier = Modifier
                 .padding(0.dp,0.dp, 0.dp, 60.dp)
                 ) {
-            items(albums) { album ->
+            items(artists) { artist ->
                 Card(
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth()
-                        .clickable {
+                        /*.clickable {
                             navController.navigate("${Destinations.DETAILS_SCREEN}/${album.id}")
-                        },
+                        },*/
                 ) {
 
                     Row {
@@ -89,7 +79,7 @@ fun ListScreen(
                                     .fillMaxWidth()
                                     .aspectRatio(4f / 3f),
                                 painter = rememberImagePainter(
-                                    data = album.cover,
+                                    data = artist.image,
                                     builder = {
                                         placeholder(R.drawable.placeholder)
                                         error(R.drawable.placeholder)
@@ -104,11 +94,7 @@ fun ListScreen(
                             Modifier
                                 .padding(8.dp)
                                 .align(Alignment.CenterVertically)) {
-                            Text(album.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                            if(album.performers.size > 0){
-                                Text(album.performers[0]?.name, maxLines = 3)
-                            }
-
+                            Text(artist.name, fontSize = 18.sp, fontWeight = FontWeight.Bold)
 
                         }
                     }
@@ -122,28 +108,14 @@ fun ListScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ListPreview() {
+fun ArtistsListPreview() {
     AlbumsAppTheme {
-        ListScreen(
+        ArtistsListScreen(
             navController = rememberNavController(),
-            albums = arrayListOf(
-                Album(
-                    "1", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                    "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
-                        Performer("1", "Artista 1")
-                    ), emptyList()                ),
-                Album(
-                    "2", "Album 2", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                    "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
-                        Performer("2", "Artista 2")
-                    ),emptyList()
-                ),
-                Album(
-                    "3", "Album 3", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
-                    "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
-                        Performer("3", "Artista 3")
-                    ),emptyList()
-                )
+            artists = arrayListOf(
+                Artist("1", "Artista1", "https://image.com", "Un Gran Artista", "1948-07-16T00:00:00.000Z"),
+                Artist("2", "Artista2", "https://image.com", "Un Gran Artista", "1948-07-16T00:00:00.000Z"),
+
             )
         )
     }
