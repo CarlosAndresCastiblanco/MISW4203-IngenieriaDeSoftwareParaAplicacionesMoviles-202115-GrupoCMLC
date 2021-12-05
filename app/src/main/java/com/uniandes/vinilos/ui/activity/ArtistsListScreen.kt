@@ -64,9 +64,9 @@ fun ArtistsListScreen(
                     modifier = Modifier
                         .padding(8.dp)
                         .fillMaxWidth()
-                        /*.clickable {
-                            navController.navigate("${Destinations.DETAILS_SCREEN}/${album.id}")
-                        },*/
+                        .clickable {
+                            navController.navigate("${Destinations.ARTIST_DETAIL_SCREEN}/${artist.id}")
+                        },
                 ) {
 
                     Row {
