@@ -50,7 +50,6 @@ class FakeRepositoryModule {
             override suspend fun createComment(album_id:String, comment:Comment): CommentResponse {
                 TODO("Not yet implemented")
             }
-			override suspend fun getComments(id: String): List<Comment> = news[0].comments
         }
 
     @Provides
