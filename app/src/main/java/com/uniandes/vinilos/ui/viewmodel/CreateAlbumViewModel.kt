@@ -92,6 +92,7 @@ class CreateAlbumViewModel @Inject constructor(
             genre.value?:"",
             recorder.value?:"",
             description.value?:"",
+            emptyList(),
             emptyList()
             )
         viewModelScope.launch(Dispatchers.IO) {

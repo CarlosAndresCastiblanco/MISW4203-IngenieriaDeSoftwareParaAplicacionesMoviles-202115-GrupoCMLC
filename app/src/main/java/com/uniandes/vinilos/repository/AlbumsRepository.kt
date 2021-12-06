@@ -1,8 +1,7 @@
 package com.uniandes.vinilos.repository
 
-import com.uniandes.vinilos.model.Album
-import com.uniandes.vinilos.model.AlbumCreate
-import com.uniandes.vinilos.model.Performer
+import android.util.Log
+import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.provider.AlbumCache
 import com.uniandes.vinilos.provider.AlbumsProvider
 import javax.inject.Inject
@@ -11,6 +10,7 @@ interface AlbumsRepository {
     suspend fun getAlbums(): List<Album>
     suspend fun getAlbum(id: String): Album
     suspend fun createAlbum(album:Album):Album
+    suspend fun createComment(album_id:String,comment:Comment):CommentResponse
 }
 
 class AlbumsRepositoryImp @Inject constructor(
@@ -39,7 +39,7 @@ class AlbumsRepositoryImp @Inject constructor(
             Performer("1", "Artista")
         )
         album = apiResponse ?: Album("", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
-        , "", "", "", "", perfomers)
+        , "", "", "", "", perfomers, emptyList())
         return album as Album
     }
 
@@ -51,9 +51,14 @@ class AlbumsRepositoryImp @Inject constructor(
             Performer("1", "Artista")
         )
         var newAlbum = apiResponse.body() ?: Album("error", "", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg"
-            , "", "", "", "", perfomers)
+            , "", "", "", "", perfomers,emptyList())
          AlbumCache.addAlbum(newAlbum)
         return newAlbum as Album
+    }
+
+    override suspend fun createComment(album_id:String, comment: Comment): CommentResponse {
+        val apiResponse = albumsProvider.createComment(comment,album_id)
+        return apiResponse.body() as CommentResponse
     }
 
 }

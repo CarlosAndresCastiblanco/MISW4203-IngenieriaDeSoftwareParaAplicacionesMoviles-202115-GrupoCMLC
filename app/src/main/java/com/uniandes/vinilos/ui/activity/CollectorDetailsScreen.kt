@@ -210,7 +210,7 @@ fun CollectorDetailsPreview() {
                     "Album description",
                     arrayListOf(
                         Performer("1", "Artista 1")
-                    )
+                    ),emptyList()
                 ),
                 Album(
                     "2",
@@ -222,7 +222,7 @@ fun CollectorDetailsPreview() {
                     "Album description",
                     arrayListOf(
                         Performer("2", "Artista 2")
-                    )
+                    ),emptyList()
                 ),
                 Album(
                     "3",
@@ -234,7 +234,7 @@ fun CollectorDetailsPreview() {
                     "Album description",
                     arrayListOf(
                         Performer("2", "Artista 2")
-                    )
+                    ),emptyList()
                 )
             )
         )

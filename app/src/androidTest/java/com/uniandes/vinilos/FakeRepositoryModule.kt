@@ -3,6 +3,7 @@ package com.uniandes.vinilos
 import com.uniandes.vinilos.di.RepositoryModule
 import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.repository.AlbumsRepository
+import com.uniandes.vinilos.repository.ArtistsRepository
 import com.uniandes.vinilos.repository.CollectorsRepository
 import dagger.Module
 import dagger.Provides
@@ -26,12 +27,16 @@ class FakeRepositoryModule {
                     "1", "Album 1", "https://i.pinimg.com/564x/aa/5f/ed/aa5fed7fac61cc8f41d1e79db917a7cd.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("1", "Artista 1")
+                    ), arrayListOf(
+                        Comment("1", "Comentario 1",1)
                     )                 ),
                 Album(
                     "2", "Album 2", "https://cdn.shopify.com/s/files/1/0275/3095/products/image_4931268b-7acf-4702-9c55-b2b3a03ed999_1024x1024.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description",  arrayListOf(
                         Performer("2", "Artista 2")
-                    )               ),
+                    ),  arrayListOf(
+                            Comment("2", "Comentario 2",1)
+                            )              ),
             )
 
             override suspend fun getAlbums(): List<Album> = news
@@ -39,6 +44,10 @@ class FakeRepositoryModule {
             override suspend fun getAlbum(id: String): Album = news[0]
 
             override suspend fun createAlbum(album: Album): Album {
+                TODO("Not yet implemented")
+            }
+
+            override suspend fun createComment(album_id:String, comment:Comment): CommentResponse {
                 TODO("Not yet implemented")
             }
         }
@@ -75,5 +84,33 @@ class FakeRepositoryModule {
             override suspend fun getCollectors(): List<Collector> = collectors
 
             override suspend fun getCollector(id: String): Collector = collectors[0]
+
         }
+
+    @Provides
+    @Singleton
+    fun providerArtistsRepository(): ArtistsRepository =
+        object : ArtistsRepository {
+            val artists = arrayListOf(
+                Artist(
+                    "1", "Artista 1",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                ),
+                Artist(
+                    "2", "Artista 2",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                )
+            )
+
+            override suspend fun getArtists(): List<Artist> = artists
+
+            override suspend fun getArtist(id: String): Artist = artists[0]
+
+        }
+
+
 }
