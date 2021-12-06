@@ -40,7 +40,6 @@ object Destinations {
     const val COLLECTOR_DETAILS_SCREEN = "COLLECTOR_DETAILS_SCREEN"
 
     const val ARTIST_LIST_SCREEN = "ARTIST_LIST_SCREEN"
-    const val ARTIST_DETAIL_SCREEN = "ARTIST_DETAIL_SCREEN"
 }
 
 @AndroidEntryPoint
@@ -224,11 +223,6 @@ fun BottonNavigationBar(
                 ) {
                     composable(Destinations.ARTIST_LIST_SCREEN) {
                         ArtistsListScreen(navController)
-                    }
-                    composable("${Destinations.ARTIST_DETAIL_SCREEN}/{id}") {
-                        it.arguments?.getString("id")?.let { title ->
-                            ArtistsDetailsScreen(title, navController)
-                        }
                     }
                 }
             }
