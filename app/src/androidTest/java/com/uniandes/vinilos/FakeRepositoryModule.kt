@@ -3,6 +3,7 @@ package com.uniandes.vinilos
 import com.uniandes.vinilos.di.RepositoryModule
 import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.repository.AlbumsRepository
+import com.uniandes.vinilos.repository.ArtistsRepository
 import com.uniandes.vinilos.repository.CollectorsRepository
 import dagger.Module
 import dagger.Provides
@@ -85,4 +86,31 @@ class FakeRepositoryModule {
             override suspend fun getCollector(id: String): Collector = collectors[0]
 
         }
+
+    @Provides
+    @Singleton
+    fun providerArtistsRepository(): ArtistsRepository =
+        object : ArtistsRepository {
+            val artists = arrayListOf(
+                Artist(
+                    "1", "Artista 1",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                ),
+                Artist(
+                    "2", "Artista 2",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                )
+            )
+
+            override suspend fun getArtists(): List<Artist> = artists
+
+            override suspend fun getArtist(id: String): Artist = artists[0]
+
+        }
+
+
 }

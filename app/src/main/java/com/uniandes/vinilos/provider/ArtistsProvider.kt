@@ -9,4 +9,7 @@ interface ArtistsProvider {
     @GET("musicians")
     suspend fun getArtists(): Response<List<Artist>>
 
+    @GET("musicians/{id}")
+    suspend fun getArtistById(@Path("id") id: String): Response<Artist>
+
 }
