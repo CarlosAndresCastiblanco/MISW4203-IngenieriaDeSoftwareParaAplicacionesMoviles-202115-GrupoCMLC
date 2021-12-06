@@ -16,6 +16,7 @@ class AlbumDetailsScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _albums = MutableLiveData<Album>()
+    private val _comments = MutableLiveData<List<Comment>>()
     val rating = MutableLiveData<Int>()
     val comment = MutableLiveData<String>()
 
