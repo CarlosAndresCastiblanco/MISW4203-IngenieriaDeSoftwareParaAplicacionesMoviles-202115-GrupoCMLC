@@ -27,14 +27,14 @@ class FakeRepositoryModule {
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("1", "Artista 1")
                     ), arrayListOf(
-                        Comment("1", "Comentario1",1)
+                        Comment("1", "Comentario 1",1)
                     )                 ),
                 Album(
                     "2", "Album 2", "https://cdn.shopify.com/s/files/1/0275/3095/products/image_4931268b-7acf-4702-9c55-b2b3a03ed999_1024x1024.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description",  arrayListOf(
                         Performer("2", "Artista 2")
                     ),  arrayListOf(
-                            Comment("2", "Comentario2",1)
+                            Comment("2", "Comentario 2",1)
                             )              ),
             )
 
@@ -49,6 +49,7 @@ class FakeRepositoryModule {
             override suspend fun createComment(album_id:String, comment:Comment): CommentResponse {
                 TODO("Not yet implemented")
             }
+			override suspend fun getComments(id: String): List<Comment> = news[0].comments
         }
 
     @Provides
