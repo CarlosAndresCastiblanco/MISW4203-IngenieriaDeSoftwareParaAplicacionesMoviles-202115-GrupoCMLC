@@ -3,6 +3,7 @@ package com.uniandes.vinilos
 import com.uniandes.vinilos.di.RepositoryModule
 import com.uniandes.vinilos.model.*
 import com.uniandes.vinilos.repository.AlbumsRepository
+import com.uniandes.vinilos.repository.ArtistsRepository
 import com.uniandes.vinilos.repository.CollectorsRepository
 import dagger.Module
 import dagger.Provides
@@ -27,14 +28,14 @@ class FakeRepositoryModule {
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description", arrayListOf(
                         Performer("1", "Artista 1")
                     ), arrayListOf(
-                        Comment("1", "Comentario1",1)
+                        Comment("1", "Comentario 1",1)
                     )                 ),
                 Album(
                     "2", "Album 2", "https://cdn.shopify.com/s/files/1/0275/3095/products/image_4931268b-7acf-4702-9c55-b2b3a03ed999_1024x1024.jpg",
                     "1948-07-16T00:00:00.000Z", "Salsa", "EMI", "Album description",  arrayListOf(
                         Performer("2", "Artista 2")
                     ),  arrayListOf(
-                            Comment("2", "Comentario2",1)
+                            Comment("2", "Comentario 2",1)
                             )              ),
             )
 
@@ -85,4 +86,31 @@ class FakeRepositoryModule {
             override suspend fun getCollector(id: String): Collector = collectors[0]
 
         }
+
+    @Provides
+    @Singleton
+    fun providerArtistsRepository(): ArtistsRepository =
+        object : ArtistsRepository {
+            val artists = arrayListOf(
+                Artist(
+                    "1", "Artista 1",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                ),
+                Artist(
+                    "2", "Artista 2",
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Ruben_Blades_by_Gage_Skidmore.jpg/800px-Ruben_Blades_by_Gage_Skidmore.jpg",
+                    "Artista del genero salsa",
+                    "1948-07-16T00:00:00.000Z",
+                )
+            )
+
+            override suspend fun getArtists(): List<Artist> = artists
+
+            override suspend fun getArtist(id: String): Artist = artists[0]
+
+        }
+
+
 }
